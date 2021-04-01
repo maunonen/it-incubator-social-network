@@ -11,19 +11,10 @@
   /*grid-gap: 10px; */
 }
 
-.header {
-  grid-area: h;
-  background-color: red;
-}
-.header img {
-  width: 50px;
-}
-.nav {
-  grid-area: n;
-  background-color: yellow;
-}
-
-.content {
+.app-wrapper-content {
   grid-area: c;
   background-color: grey;
 }
+
+
+

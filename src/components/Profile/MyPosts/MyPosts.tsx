@@ -1,27 +1,33 @@
 import React from 'react';
 import classes from './MyPosts.module.css'
+import Post from "./Post/Post";
+
+
 
 const MyPosts = () => {
     return (
-        <div className={classes.content}>
+        <div className={classes.postsBlock}>
+            <h3>My Post</h3>
             <div>
-                <img alt={"content img"} src="http://ekkotek.com/MobileApps/youtubeApi/examples/images/Swan_large.jpg"/>
-            </div>
-            <div>
-                ava + description
-            </div>
-            <div>
-                My Post
                 <div>
-                    New post
+                    <textarea></textarea>
                 </div>
-                <div className={classes.posts}>
-                    <div className={classes.item}>1</div>
-                    <div className={classes.item}>2</div>
-                    <div className={classes.item}>3</div>
+                <div>
+                    <button>New post</button>
                 </div>
             </div>
-            Main Content
+            <div className={classes.posts}>
+                <Post
+                    message={"How are you"}
+                    src={"https://picsum.photos/100/100?random=1"}
+                    likesCount={6}
+                />
+                <Post
+                    message={"This is my first"}
+                    src={"https://picsum.photos/100/100?random=2"}
+                    likesCount={6}
+                />
+            </div>
         </div>
     )
 }

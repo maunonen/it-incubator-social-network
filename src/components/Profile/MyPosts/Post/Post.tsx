@@ -1,13 +1,14 @@
 import React from 'react';
 import classes from './Post.module.css'
+import {PostType} from "../MyPosts";
 
-type Messagetype = {
+/*type Messagetype = {
     message : string
     src : string
     likesCount : number
-}
+}*/
 
-const Post = ( props : Messagetype) => {
+const Post = ( props : PostType) => {
     return (
         <div className={classes.item}><img src={props.src}/>
             { props.message }

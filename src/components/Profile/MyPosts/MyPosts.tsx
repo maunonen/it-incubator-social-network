@@ -1,45 +1,47 @@
 import React from 'react';
 import classes from './MyPosts.module.css'
-import Post from "./Post/Post";
+import Post, {PostType} from "./Post/Post";
+import {ProfilePageType} from "../../../redux/state";
 
- export type PostType = {
-     id : number
-     message : string
-     likesCount : number
- }
+const MyPosts : React.FC<ProfilePageType> = ( props ) => {
 
+    /*const addPost = (  event: React.MouseEvent<HTMLElement>) => {
+        console.log('Add post');
+    }*/
 
-const MyPosts = () => {
+    //let newPostElement  = React.createRef();
+    let newPostElement  = React.createRef<HTMLTextAreaElement>();
 
+    const addPost = () => {
+        if(newPostElement.current) {
+            let text  = newPostElement.current.value;
+            props.addPost(text);
+            console.log(text);
+        } else {
+            console.log("Value not defined");
+        }
+    }
 
-    let messageData = [
-        { id : 1, Message : 'Some post number one', likesCount : 10},
-        { id : 2, Message : 'yet another post number one' , likesCount : 20},
-        { id : 3, Message : 'Post number two' , likesCount : 30},
-        { id : 4, Message : 'Some post number three' , likesCount : 40}
-    ]
     return (
         <div className={classes.postsBlock}>
             <h3>My Post</h3>
             <div>
                 <div>
-                    <textarea></textarea>
+                    <textarea ref={newPostElement}></textarea>
                 </div>
                 <div>
-                    <button>New post</button>
+                    <button onClick={addPost}>New post</button>
                 </div>
             </div>
             <div className={classes.posts}>
-                <Post
-                    id={1}
-                    message={"How are you"}
-                    likesCount={6}
-                />
-                <Post
-                    id={2}
-                    message={"This is my first"}
-                    likesCount={6}
-                />
+                { props.posts.map((post) => {
+                    return <Post
+                        key = {post.id}
+                        id={post.id}
+                        message={post.message}
+                        likesCount={post.likesCount}
+                    />
+                })}
             </div>
         </div>
     )

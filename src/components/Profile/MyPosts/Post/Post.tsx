@@ -1,16 +1,15 @@
 import React from 'react';
 import classes from './Post.module.css'
-import {PostType} from "../MyPosts";
 
-/*type Messagetype = {
+export type PostType = {
+    id : number
     message : string
-    src : string
     likesCount : number
-}*/
+}
 
-const Post = ( props : PostType) => {
+const Post : React.FC<PostType> = ( props  ) => {
     return (
-        <div className={classes.item}><img src={props.src}/>
+        <div className={classes.item}>
             { props.message }
             <div>
                 <span>Like </span>{props.likesCount}

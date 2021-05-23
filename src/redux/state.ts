@@ -1,45 +1,62 @@
-type MessageType = {
+
+export const addPost  = ( post : string ) : void => {
+
+    let newPost = {
+        id : 5,
+        message : post,
+        likesCount : 0
+    }
+    console.log('ADD post from STATE JS', newPost);
+    RootState.profilePage.posts.push( newPost );
+}
+
+
+export type MessageType = {
     id : number
     message : string
 }
 
-type DialogType = {
+export type DialogType = {
     id : number
     name : string
 }
-type PostType = {
+export type PostType = {
     id : number
     message : string
     likesCount : number
 }
-type ProfilePageType = {
+
+export type ProfilePageType = {
     posts : Array<PostType>
+    addPost : (str : string ) => void
 }
 
-type DialogPageType = {
+export type DialogPageType = {
     dialogs : Array<DialogType>
     messages : Array<MessageType>
 }
 
-type SideBarType = {
+export type SideBarType = {
 
 }
 
-type RootStateType = {
+export type RootStateType = {
     profilePage : ProfilePageType
     dialogsPage : DialogPageType
-    sidebar : SideBarType
+
+    //sidebar : SideBarType
 }
 
-let state: RootStateType;
-state = {
+let RootState: RootStateType;
+RootState = {
     profilePage: {
         posts: [
             {id: 1, message: 'Hello How are you', likesCount: 12},
             {id: 2, message: 'This is my first post', likesCount: 11},
             {id: 3, message: 'Bla bla ', likesCount: 11},
             {id: 4, message: 'Dada ', likesCount: 10}
-        ]
+        ],
+        addPost : addPost
     },
     dialogsPage: {
         dialogs: [
@@ -58,7 +75,10 @@ state = {
             {id: 6, message: "Yo"},
         ]
     },
-    sidebar: {}
+
+    //sidebar: {}
 };
 
-export default state
+
+
+export default RootState

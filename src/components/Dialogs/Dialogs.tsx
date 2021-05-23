@@ -1,7 +1,5 @@
 import React from 'react';
 import classes from './Dialogs.module.css'
-import Navbar from "../Navbar/Navbar";
-import {NavLink} from 'react-router-dom';
 import DialogItem from './DialogItem/DialogItem';
 import Message, {MessageType} from './Message/Message';
 import {DialogPageType, RootStateType} from "../../redux/state";
@@ -10,13 +8,13 @@ const Dialogs : React.FC<DialogPageType> = ( props : DialogPageType) => {
 
     let newMessageElement  = React.createRef<HTMLTextAreaElement>();
 
-    const addMessage = () => {
-        if(newMessageElement.current) {
-            let text  = newMessageElement.current.value;
-            console.log(text);
-        } else {
-            console.log("Value not defined");
-        }
+    const onNewMessageChanges = (e : any) => {
+        let body = e .target.value
+        props.updateNewMessageBody(body);
+    }
+
+    const onSendMessageClick = () => {
+        props.sendMessage()
     }
 
     return (
@@ -48,4 +46,6 @@ const Dialogs : React.FC<DialogPageType> = ( props : DialogPageType) => {
         </div>
     )
 }
+
+
 export default Dialogs

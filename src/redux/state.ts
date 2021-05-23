@@ -1,3 +1,5 @@
+import Dialogs from "../components/Dialogs/Dialogs";
+import React from "react";
 
 export const addPost  = ( post : string ) : void => {
 
@@ -27,13 +29,16 @@ export type PostType = {
 }
 
 export type ProfilePageType = {
+    newPostText : string
     posts : Array<PostType>
     addPost : (str : string ) => void
+    updateNewPostText : (str : string ) => void
 }
 
 export type DialogPageType = {
-    dialogs : Array<DialogType>
-    messages : Array<MessageType>
+    updateNewMessageBody : (str : string ) => void
+    sendMessage : () => void
+    dialogsPage : any
 }
 
 export type SideBarType = {
@@ -48,6 +53,7 @@ export type RootStateType = {
 }
 
 let RootState: RootStateType;
+// @ts-ignore
 RootState = {
     profilePage: {
         posts: [

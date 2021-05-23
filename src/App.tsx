@@ -4,31 +4,35 @@ import {BrowserRouter, Route} from "react-router-dom";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
-import Dialogs from "./components/Dialogs/Dialogs";
-import {RootStateType} from "./redux/state";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {Provider} from "react-redux";
+import store from "./redux/redux-store";
 
-const App: React.FC<RootStateType> = (props) => {
+/*const App: React.FC<RootStateType> = (props) => {*/
+const App: React.FC = (props) => {
 
     return (
         <BrowserRouter>
-            <div className="app-wrapper">
-                <Header/>
-                <Navbar/>
-                <div className='app-wrapper-content'>
-                    <Route
-                        path='/dialogs'
-                        render={() => <Dialogs
-                            dialogs={props.dialogsPage.dialogs}
-                            messages={props.dialogsPage.messages}
-                        />}/>
-                    <Route
-                        path='/profile'
-                        render={() => <Profile
-                            posts={props.profilePage.posts}
-                            addPost={props.profilePage.addPost}
-                        />}/>
+            <Provider store={store}>
+                <div className="app-wrapper">
+                    <Header/>
+                    <Navbar/>
+                    <div className='app-wrapper-content'>
+                        <Route
+                            path='/dialogs'
+                            render={() => <DialogsContainer
+                                /*dialogs={props.dialogsPage.dialogs}*/
+                                /*messages={props.dialogsPage.messages}*/
+                            />}/>
+                        <Route
+                            path='/profile'
+                            render={() => <Profile
+                                /*posts={props.profilePage.posts}*/
+                                /*addPost={props.profilePage.addPost}*/
+                            />}/>
+                    </div>
                 </div>
-            </div>
+            </Provider>
         </BrowserRouter>
     );
 }

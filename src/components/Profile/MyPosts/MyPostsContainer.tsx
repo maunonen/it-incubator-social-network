@@ -9,6 +9,7 @@ const mapStateToProps = (state : any) => {
         newPostText : state.profilePage.newPost
     }
 }
+// comment
 
 const mapDispatchToProps = (dispatch : any) => {
     return {

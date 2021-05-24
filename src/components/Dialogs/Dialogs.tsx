@@ -16,6 +16,7 @@ const Dialogs : React.FC<DialogPageType> = ( props : DialogPageType) => {
     const onSendMessageClick = () => {
         props.sendMessage()
     }
+    let state = props.dialogsPage
 
     return (
         <div className={classes.dialogs}>

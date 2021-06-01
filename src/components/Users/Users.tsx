@@ -1,38 +1,45 @@
 import React from 'react'
 import styles from './users.module.css'
+import * as axios from "axios";
 
 let Users = (props: any) => {
+
     // @ts-ignore
-    if (props.users.length === 0) {
-        props.setUsers(
-            [
-                {
-                    id: 1,
-                    photoUrl: 'https://picsum.photos/200/300',
-                    followed: false,
-                    fullName: 'Alex',
-                    status: 'online',
-                    location: {
-                        city: 'Minsk',
-                        country: 'Belarus'
-                    },
+    axios.get("https://social-network.samuraijs.com/users").then( responce  => {
+        props.setUsers([...responce.data.items])
+    } );
 
-                },
-                {
-                    id: 2,
-                    photoUrl: 'https://picsum.photos/200/300',
-                    followed: true,
-                    fullName: 'Jenny',
-                    status: 'offline',
-                    location: {
-                        city: 'Moscow',
-                        country: 'Russia'
-                    },
-                },
-            ]
-        )
-
-    }
+    // @ts-ignore
+    // if (props.users.length === 0) {
+    //     props.setUsers(
+    //         [
+    //             {
+    //                 id: 1,
+    //                 photoUrl: 'https://picsum.photos/200/300',
+    //                 followed: false,
+    //                 fullName: 'Alex',
+    //                 status: 'online',
+    //                 location: {
+    //                     city: 'Minsk',
+    //                     country: 'Belarus'
+    //                 },
+    //
+    //             },
+    //             {
+    //                 id: 2,
+    //                 photoUrl: 'https://picsum.photos/200/300',
+    //                 followed: true,
+    //                 fullName: 'Jenny',
+    //                 status: 'offline',
+    //                 location: {
+    //                     city: 'Moscow',
+    //                     country: 'Russia'
+    //                 },
+    //             },
+    //         ]
+    //     )
+    //
+    // }
 
     return (
         <div>
@@ -42,7 +49,7 @@ let Users = (props: any) => {
                     <div key={u.id}>
                         <span>
                             <div>
-                                <img src={u.photoUrl} className={styles.userPhoto}/>
+                                <img src={u.photos.small !== null ? u.photos.small : "https://picsum.photos/200/300" } className={styles.userPhoto}/>
                             </div>
                             <div>
                                 {u.followed ? <button

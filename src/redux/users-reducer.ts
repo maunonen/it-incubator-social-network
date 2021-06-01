@@ -7,6 +7,7 @@ let initialProfileState = {
     users: [
         {
             id: 1,
+            photoUrl : 'https://picsum.photos/200/300',
             followed: false,
             fullName: 'Alex',
             status: 'online',
@@ -18,6 +19,7 @@ let initialProfileState = {
         },
         {
             id: 2,
+            photoUrl : 'https://picsum.photos/200/300',
             followed: true,
             fullName: 'Jenny',
             status: 'offline',

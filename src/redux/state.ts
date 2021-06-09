@@ -55,6 +55,7 @@ export type RootStateType = {
 let RootState: RootStateType;
 // @ts-ignore
 RootState = {
+    // @ts-ignore
     profilePage: {
         posts: [
             {id: 1, message: 'Hello How are you', likesCount: 12},
@@ -65,6 +66,7 @@ RootState = {
         addPost : addPost
     },
     dialogsPage: {
+        // @ts-ignore
         dialogs: [
             {id: 1, name: "Alex"},
             {id: 2, name: "Jane"},

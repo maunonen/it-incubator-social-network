@@ -4,10 +4,12 @@ import * as axios from "axios";
 
 let Users = (props: any) => {
 
-    // @ts-ignore
-    axios.get("https://social-network.samuraijs.com/users").then( responce  => {
-        props.setUsers([...responce.data.items])
-    } );
+    let getUsers = () => {
+        // @ts-ignore
+        axios.get("https://social-network.samuraijs.com/users").then(response => {
+            props.setUsers([...response.data.items])
+        });
+    }
 
     // @ts-ignore
     // if (props.users.length === 0) {
@@ -49,7 +51,8 @@ let Users = (props: any) => {
                     <div key={u.id}>
                         <span>
                             <div>
-                                <img src={u.photos.small !== null ? u.photos.small : "https://picsum.photos/200/300" } className={styles.userPhoto}/>
+                                <img src={u.photos.small !== null ? u.photos.small : "https://picsum.photos/200/300"}
+                                     className={styles.userPhoto}/>
                             </div>
                             <div>
                                 {u.followed ? <button

@@ -11,11 +11,17 @@ let UsersContainer = () => {
         </div>
     )
 }
+
+
+
 let mapStateToProps = (state : any) => {
     return {
         users: state.usersPage.users
     }
 }
+
+
+
 
 
 let mapDispatchToProps = (dispatch : any) => {

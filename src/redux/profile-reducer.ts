@@ -1,14 +1,51 @@
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 
-let initialProfileState = {
-    posts: [
-        {id: 1, message: 'Hello', likesCount: 12}],
-    newPostText: 'it-kamasutra'
+
+type PostType = {
+    id: number
+    message: string
+    likesCount: number
 }
 
+type ContactType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
 
-export const profileReducer = (state = initialProfileState, action: any) => {
+type PhotosType = {
+    small: string | null
+    large : string | null
+}
+
+type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactType
+    photos : PhotosType
+}
+
+let initialProfileState = {
+    posts: [
+        {id: 1, message: 'Hello', likesCount: 12}] as Array<PostType>,
+    profile : null as ProfileType | null,
+    newPostText: "",
+    status : ""
+}
+
+export type InitialStateType = typeof initialProfileState
+
+
+
+export const profileReducer = (state = initialProfileState, action: any) : InitialStateType => {
     switch (action.type) {
         case action.type === ADD_POST:
             let newPost = {
@@ -31,8 +68,17 @@ export const profileReducer = (state = initialProfileState, action: any) => {
     }
 
 }
+type AddPostActionCreatorType = {
+    type : typeof ADD_POST
+    newPostText : string
+}
 
-export const addPostActionCreator = () => ({type: ADD_POST})
-export const updateNewPostTextActionCreator = (text: any) => (
-    {type: UPDATE_NEW_POST_TEXT, newPost: text})
+type UpdateNewPostTextActionCreatorType = {
+    type : typeof UPDATE_NEW_POST_TEXT
+    newPostText : string
+}
+
+export const addPostActionCreator = ( newPostText : string ) : AddPostActionCreatorType => ({type: ADD_POST, newPostText })
+export const updateNewPostTextActionCreator = (newPostText: string) : UpdateNewPostTextActionCreatorType => (
+    {type: UPDATE_NEW_POST_TEXT, newPostText })
 

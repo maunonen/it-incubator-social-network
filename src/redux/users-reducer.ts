@@ -66,9 +66,9 @@ export const usersReducer = (state = initialProfileState, action: any) => {
 
 }
 
-export const followAC = (userId: any) => ({type: FOLLOW, userId})
-export const unfollowAC = (userId: any) => ({type: UNFOLLOW, userId})
-export const setUsersAC = (users: any) => ({type: SET_USERS, users})
+export const followAC = (userId: number) => ({type: FOLLOW, userId} as const)
+export const unfollowAC = (userId: number) => ({type: UNFOLLOW, userId} as const)
+export const setUsersAC = (users: any) => ({type: SET_USERS, users} as const)
 
 // export const addPostActionCreator = () => ({type: ADD_POST})
 // export const updateNewPostTextActionCreator = (text: any) => (

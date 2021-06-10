@@ -15,7 +15,11 @@ const Dialogs : React.FC<any> = ( props : DialogPageType) => {
 
     }
     const onSendMessageClick = () => {
-        props.sendMessage()
+        if ( newMessageElement.current) {
+            let body = newMessageElement.current.value
+            props.sendMessage(body)
+            body = ''
+        }
     }
 
     return (
@@ -40,7 +44,7 @@ const Dialogs : React.FC<any> = ( props : DialogPageType) => {
                     <textarea ref={newMessageElement}></textarea>
                 </div>
                 <div>
-                    {/*<button onClick={addMessage}>New message</button>*/}
+                    <button onClick={onSendMessageClick}>New message</button>
                 </div>
 
             </div>

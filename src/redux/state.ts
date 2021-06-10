@@ -37,7 +37,7 @@ export type ProfilePageType = {
 
 export type DialogPageType = {
     updateNewMessageBody : (str : string ) => void
-    sendMessage : () => void
+    sendMessage : (body: string) => void
     dialogsPage : any
 }
 

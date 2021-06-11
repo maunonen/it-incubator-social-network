@@ -57,11 +57,11 @@ export const usersReducer = (state = initialProfileState, action: CombinedUsersA
         case FOLLOW:
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.userId) {
-                        return {...u, followed: true}
+                users: state.users.map(user => {
+                    if (user.id === action.userId) {
+                        return {...user, followed: true}
                     }
-                    return u
+                    return user
                 })
             }
         case FOLLOW:
@@ -99,9 +99,9 @@ export type SetUserACType = {
 }
 
 
-export const followAC = (userId: number) => ({type: FOLLOW, userId} as const)
-export const unfollowAC = (userId: number) => ({type: UNFOLLOW, userId} as const)
-export const setUsersAC = (users: any) => ({type: SET_USERS, users} as const)
+export const followAC = (userId: number) : FollowACType => ({type: FOLLOW, userId} as const)
+export const unfollowAC = (userId: number) : UnfollowACType => ({type: UNFOLLOW, userId} as const)
+export const setUsersAC = (users: Array<UserType>) : SetUserACType => ({type: SET_USERS, users} as const)
 
 // export const addPostActionCreator = () => ({type: ADD_POST})
 // export const updateNewPostTextActionCreator = (text: any) => (

@@ -2,17 +2,22 @@ import React from 'react';
 import classes from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem';
 import Message, {MessageType} from './Message/Message';
-import {DialogPageType, RootStateType} from "../../redux/state";
+import {MapDispatchToPropsDialogsType, MapStateToPropsDialogsType} from "./DialogsContainer";
 
-const Dialogs : React.FC<any> = ( props : DialogPageType) => {
+export type OwnPropsType  = {
+    title? : string
+}
 
-    let state = props.dialogsPage
+export type DialogsPropsType = MapStateToPropsDialogsType & MapDispatchToPropsDialogsType & OwnPropsType
+
+const Dialogs : React.FC<DialogsPropsType> = ( props ) => {
+
+    // let state = props.dialogsPage
 
     let newMessageElement  = React.createRef<HTMLTextAreaElement>();
     const onNewMessageChanges = (e : any) => {
         let body = e .target.value
         props.updateNewMessageBody(body);
-
     }
     const onSendMessageClick = () => {
         if ( newMessageElement.current) {
@@ -26,7 +31,7 @@ const Dialogs : React.FC<any> = ( props : DialogPageType) => {
         <div className={classes.dialogs}>
             <div className={classes.dialogsItems}>
                 {
-                    state.dialogs.map((dialog : any) => {
+                    props.dialogs.map((dialog : any) => {
                         return <DialogItem key={dialog.id} id={dialog.id} name={dialog.name} />
                     })
                 }
@@ -34,7 +39,7 @@ const Dialogs : React.FC<any> = ( props : DialogPageType) => {
             </div>
             <div className={classes.messages}>
                 {
-                    state.messages.map((message : any) => {
+                    props.messages.map((message : any) => {
                     return <Message key={message.id} message={message.message} id={message.id}/>
                 })
                 }
@@ -46,7 +51,6 @@ const Dialogs : React.FC<any> = ( props : DialogPageType) => {
                 <div>
                     <button onClick={onSendMessageClick}>New message</button>
                 </div>
-
             </div>
         </div>
     )

@@ -2,8 +2,12 @@ import React from 'react';
 import classes from './MyPosts.module.css'
 import Post, {PostType} from "./Post/Post";
 import {ProfilePageType} from "../../../redux/state";
+import {MapDispatchToPropsMyPostType, MapStateToPropsMyPostType} from "./MyPostsContainer";
 
-const MyPosts : React.FC<ProfilePageType> = ( props ) => {
+
+export type CombinedPropsMyPostsType = MapStateToPropsMyPostType & MapDispatchToPropsMyPostType
+
+const MyPosts : React.FC<CombinedPropsMyPostsType> = ( props ) => {
 
     /*const addPost = (  event: React.MouseEvent<HTMLElement>) => {
         console.log('Add post');

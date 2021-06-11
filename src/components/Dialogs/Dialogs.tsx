@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEventHandler} from 'react';
 import classes from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem';
 import Message, {MessageType} from './Message/Message';
@@ -15,8 +15,9 @@ const Dialogs : React.FC<DialogsPropsType> = ( props ) => {
     // let state = props.dialogsPage
 
     let newMessageElement  = React.createRef<HTMLTextAreaElement>();
+    // const onNewMessageChanges = (e : ChangeEventHandler<HTMLTextAreaElement>) => {
     const onNewMessageChanges = (e : any) => {
-        let body = e .target.value
+        let body = e.target.value
         props.updateNewMessageBody(body);
     }
     const onSendMessageClick = () => {
@@ -46,7 +47,10 @@ const Dialogs : React.FC<DialogsPropsType> = ( props ) => {
             </div>
             <div className={classes.newMessage}>
                 <div>
-                    <textarea ref={newMessageElement}></textarea>
+                    <textarea
+                        ref={newMessageElement}
+                        onChange={onNewMessageChanges}
+                    ></textarea>
                 </div>
                 <div>
                     <button onClick={onSendMessageClick}>New message</button>

@@ -2,13 +2,13 @@ const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 
 
-type PostType = {
+export type PostType = {
     id: number
     message: string
     likesCount: number
 }
 
-type ContactType = {
+export type ContactType = {
     github: string
     vk: string
     facebook: string
@@ -19,12 +19,12 @@ type ContactType = {
     mainLink: string
 }
 
-type PhotosType = {
+export type PhotosType = {
     small: string | null
     large : string | null
 }
 
-type ProfileType = {
+export type ProfileType = {
     userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string

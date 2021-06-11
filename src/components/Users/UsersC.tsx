@@ -1,10 +1,13 @@
 import React from 'react'
 import styles from './users.module.css'
 import * as axios from "axios";
+import {MapDispatchToPropsUsersType, MapStateToPropsUsersType} from "./UsersContainer";
 
-class UsersC extends React.Component<any, any> {
+export type CombinedPropsType = MapStateToPropsUsersType & MapDispatchToPropsUsersType
 
-    constructor(props: any) {
+class UsersC extends React.Component<CombinedPropsType> {
+
+    constructor(props : CombinedPropsType) {
         super(props);
         //@ts-ignore
         axios.get("https://social-network.samuraijs.com/users").then(response => {
@@ -20,8 +23,7 @@ class UsersC extends React.Component<any, any> {
         return (
             <div>
                 {
-                    // @ts-ignore
-                    props.users.map(u =>
+                    this.props.users.map(u =>
                         <div key={u.id}>
                         <span>
                             <div>

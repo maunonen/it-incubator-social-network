@@ -7,11 +7,19 @@ const SET_USERS = 'SET_USERS'
 
 export type UserType = {
     id: number
-    photoUrl: string
+    name : string
+    // Delete in case it not used anymore
+    photoUrl : string
+    photos: UserPhotosType
     followed: boolean
     fullName: string
     status: string
     location : LocationType
+}
+
+export type UserPhotosType = {
+    small : string
+    large : string
 }
 
 export type LocationType = {

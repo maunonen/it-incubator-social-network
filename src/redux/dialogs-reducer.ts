@@ -26,8 +26,9 @@ let initialDialogsState = {
 
 export type InitialDialogsStateType = typeof initialDialogsState
 
+export type CombinedDialogActionType = SendMessageCreatorActionType | UpdateNewMessageActionCreatorType
 
-export const dialogsReducer = (state = initialDialogsState, action: any): InitialDialogsStateType => {
+export const dialogsReducer = (state = initialDialogsState, action: CombinedDialogActionType): InitialDialogsStateType => {
 
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
@@ -51,9 +52,14 @@ type SendMessageCreatorActionType = {
     newMessageBody : string
 }
 
+type UpdateNewMessageActionCreatorType = {
+    type  :typeof UPDATE_NEW_MESSAGE_BODY
+    body : string
+}
+
 export const sendMessageActionCreator = (newMessageBody: string) : SendMessageCreatorActionType => (
     {type: SEND_MESSAGE, newMessageBody}
 )
-export const updateNewMessageActionCreator = (body: string) => (
+export const updateNewMessageActionCreator = (body: string) : UpdateNewMessageActionCreatorType => (
     {type: UPDATE_NEW_MESSAGE_BODY, body: body})
 

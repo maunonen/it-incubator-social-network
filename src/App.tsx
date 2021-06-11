@@ -10,7 +10,7 @@ import UsersContainer from "./components/Users/UsersContainer";
 
 
 /*const App: React.FC<RootStateType> = (props) => {*/
-const App: React.FC = (props) => {
+const App: React.FC = (props : any ) => {
 
     return (
 

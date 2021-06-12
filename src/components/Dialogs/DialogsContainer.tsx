@@ -17,18 +17,21 @@ export type MapStateToPropsDialogsType = {
     // dialogsPage?: Array<InitialDialogsStateType>
     dialogs: Array<DialogType>
     messages: Array<MessageType>
+    newMessageBody : string
 }
 
 export type MapDispatchToPropsDialogsType = {
     updateNewMessageBody : (body : string ) => void
-    sendMessage : (body : string ) => void
+    sendMessage : () => void
 }
 
 let mapStateToProps = (state : AppStateType): MapStateToPropsDialogsType => {
     return {
         // dialogsPage: state.dialogsPage,
         dialogs: state.dialogsPage.dialogs,
-        messages: state.dialogsPage.messages
+        messages: state.dialogsPage.messages,
+        newMessageBody: state.dialogsPage.newMessageBody
+
     }
 }
 
@@ -37,8 +40,8 @@ let mapDispatchToProps  = (dispatch : Dispatch<CombinedDialogActionType>) : MapD
         updateNewMessageBody : ( body : string ) => {
             dispatch(updateNewMessageActionCreator( body))
         },
-        sendMessage : (body : string ) => {
-            dispatch(sendMessageActionCreator( body))
+        sendMessage : () => {
+            dispatch(sendMessageActionCreator( ))
         }
     }
 }

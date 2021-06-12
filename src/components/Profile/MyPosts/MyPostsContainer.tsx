@@ -17,7 +17,7 @@ export type MapStateToPropsMyPostType = {
 
 export type MapDispatchToPropsMyPostType = {
     updateNewPostText : ( text : string ) => void
-    addPost : (newPost : string) => void
+    addPost : () => void
 }
 
 
@@ -33,8 +33,8 @@ const mapDispatchToProps = (dispatch : Dispatch<CombinedProfileActionCreatorType
         updateNewPostText : (text : string) => {
             dispatch(updateNewPostTextActionCreator(text))
         },
-        addPost : (newPost : string) => {
-            dispatch(addPostActionCreator( newPost ))
+        addPost : () => {
+            dispatch(addPostActionCreator(  ))
         }
     }
 }

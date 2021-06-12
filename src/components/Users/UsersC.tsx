@@ -9,14 +9,13 @@ class UsersC extends React.Component<CombinedPropsType> {
 
     constructor(props : CombinedPropsType) {
         super(props);
+    }
+
+    componentDidMount() {
         //@ts-ignore
         axios.get("https://social-network.samuraijs.com/users").then(response => {
             this.props.setUsers([...response.data.items])
         });
-    }
-
-    componentDidMount() {
-
     }
 
     render() {

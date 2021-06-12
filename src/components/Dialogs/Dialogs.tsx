@@ -22,9 +22,9 @@ const Dialogs : React.FC<DialogsPropsType> = ( props ) => {
     }
     const onSendMessageClick = () => {
         if ( newMessageElement.current) {
-            let body = newMessageElement.current.value
-            props.sendMessage(body)
-            body = ''
+            /*let body = newMessageElement.current.value*/
+            props.sendMessage()
+            /*body = ''*/
         }
     }
 
@@ -50,6 +50,7 @@ const Dialogs : React.FC<DialogsPropsType> = ( props ) => {
                     <textarea
                         ref={newMessageElement}
                         onChange={onNewMessageChanges}
+                        value={props.newMessageBody}
                     ></textarea>
                 </div>
                 <div>

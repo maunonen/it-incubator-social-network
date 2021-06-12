@@ -46,16 +46,13 @@ export type InitialStateType = typeof initialProfileState
 export type CombinedProfileActionCreatorType = AddPostActionCreatorType | UpdateNewPostTextActionCreatorType
 
 export const profileReducer = (state = initialProfileState, action: CombinedProfileActionCreatorType) : InitialStateType => {
-    console.log("Profile reducer", action)
     switch (action.type) {
         case ADD_POST:
-            console.log('ADD POST')
             let newPost = {
                 id: 5,
                 message: state.newPostText,
                 likesCount: 0
             }
-            console.log(state)
             return {
                 ...state,
                 posts: [...state.posts, newPost],
@@ -73,7 +70,7 @@ export const profileReducer = (state = initialProfileState, action: CombinedProf
 }
 type AddPostActionCreatorType = {
     type : typeof ADD_POST
-    newPostText : string
+    /*newPostText : string*/
 }
 
 type UpdateNewPostTextActionCreatorType = {
@@ -81,7 +78,7 @@ type UpdateNewPostTextActionCreatorType = {
     newPostText : string
 }
 
-export const addPostActionCreator = ( newPostText : string ) : AddPostActionCreatorType => ({type: ADD_POST, newPostText })
+export const addPostActionCreator = ( ) : AddPostActionCreatorType => ({type: ADD_POST })
 export const updateNewPostTextActionCreator = (newPostText: string) : UpdateNewPostTextActionCreatorType => (
     {type: UPDATE_NEW_POST_TEXT, newPostText })
 

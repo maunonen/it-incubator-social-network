@@ -39,8 +39,8 @@ export const dialogsReducer = (state = initialDialogsState, action: CombinedDial
         case SEND_MESSAGE:
             return {
                 ...state,
+                messages: [...state.messages, {id: 6, message: state.newMessageBody}],
                 newMessageBody: '',
-                messages: [...state.messages, {id: 6, message: state.newMessageBody}]
             }
         default:
             return state
@@ -49,7 +49,7 @@ export const dialogsReducer = (state = initialDialogsState, action: CombinedDial
 
 type SendMessageCreatorActionType = {
     type : typeof SEND_MESSAGE
-    newMessageBody : string
+    /*newMessageBody : string*/
 }
 
 type UpdateNewMessageActionCreatorType = {
@@ -57,8 +57,8 @@ type UpdateNewMessageActionCreatorType = {
     body : string
 }
 
-export const sendMessageActionCreator = (newMessageBody: string) : SendMessageCreatorActionType => (
-    {type: SEND_MESSAGE, newMessageBody}
+export const sendMessageActionCreator = () : SendMessageCreatorActionType => (
+    {type: SEND_MESSAGE }
 )
 export const updateNewMessageActionCreator = (body: string) : UpdateNewMessageActionCreatorType => (
     {type: UPDATE_NEW_MESSAGE_BODY, body: body})

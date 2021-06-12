@@ -3,6 +3,7 @@ import classes from './MyPosts.module.css'
 import Post, {PostType} from "./Post/Post";
 import {ProfilePageType} from "../../../redux/state";
 import {MapDispatchToPropsMyPostType, MapStateToPropsMyPostType} from "./MyPostsContainer";
+import {updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 
 
 export type CombinedPropsMyPostsType = MapStateToPropsMyPostType & MapDispatchToPropsMyPostType
@@ -18,9 +19,16 @@ const MyPosts : React.FC<CombinedPropsMyPostsType> = ( props ) => {
 
     const addPost = () => {
         if(newPostElement.current) {
+            /*let text  = newPostElement.current.value;*/
+            props.addPost();
+        } else {
+            console.log("Value not defined");
+        }
+    }
+    const updatePostText = () => {
+        if(newPostElement.current) {
             let text  = newPostElement.current.value;
-            props.addPost(text);
-            console.log(text);
+            props.updateNewPostText(text);
         } else {
             console.log("Value not defined");
         }
@@ -31,7 +39,11 @@ const MyPosts : React.FC<CombinedPropsMyPostsType> = ( props ) => {
             <h3>My Post</h3>
             <div>
                 <div>
-                    <textarea ref={newPostElement}></textarea>
+                    <textarea
+                        ref={newPostElement}
+                        value={props.newPostText}
+                        onChange={updatePostText}
+                    ></textarea>
                 </div>
                 <div>
                     <button onClick={addPost}>New post</button>

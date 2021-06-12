@@ -6,9 +6,9 @@ let Users = (props: any) => {
 
     let getUsers = () => {
         // @ts-ignore
-        axios.get("https://social-network.samuraijs.com/users").then(response => {
+        /*axios.get("https://social-network.samuraijs.com/users").then(response => {
             props.setUsers([...response.data.items])
-        });
+        });*/
     }
 
     // @ts-ignore
@@ -43,6 +43,9 @@ let Users = (props: any) => {
     //
     // }
 
+    props.users.forEach(u => {
+        console.log(u.photos.small)
+    })
     return (
         <div>
             {
@@ -51,7 +54,7 @@ let Users = (props: any) => {
                     <div key={u.id}>
                         <span>
                             <div>
-                                <img src={u.photos.small !== null ? u.photos.small : "https://picsum.photos/200/300"}
+                                <img src={u.photos.small ? u.photos.small : "https://picsum.photos/200/201"}
                                      className={styles.userPhoto}/>
                             </div>
                             <div>
@@ -66,14 +69,17 @@ let Users = (props: any) => {
                             </div>
                         </span>
                         <span>
-                            <span>
-                                <div>{u.fullName}</div>
-                                <div>{u.status}</div>
-                            </span>
-                            <span>
-                                <div>{u.location.country}</div>
-                                <div>{u.location.city}</div>
-                            </span>
+                                <span>
+                                    <div>{u.fullName && u.fullName}</div>
+                                    <div>{u.status && u.status}</div>
+                                </span>
+                            {
+                                u.location &&
+                                <span>
+                                    <div>{u.location.country && u.location.country}</div>
+                                    <div>{u.location.city && u.location.city}</div>
+                                </span>
+                            }
                         </span>
                     </div>
                 )

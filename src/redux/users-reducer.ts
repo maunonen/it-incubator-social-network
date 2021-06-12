@@ -9,12 +9,12 @@ export type UserType = {
     id: number
     name : string
     // Delete in case it not used anymore
-    photoUrl : string
-    photos: UserPhotosType
+    photoUrl : string | null
+    photos?: UserPhotosType
     followed: boolean
     fullName: string
-    status: string
-    location : LocationType
+    status: string | null
+    location? : LocationType
 }
 
 export type UserPhotosType = {
@@ -35,6 +35,10 @@ let initialProfileState = {
             followed: false,
             fullName: 'Alex',
             status: 'online',
+            photos : {
+                small : "https://picsum.photos/200/202",
+                large : "https://picsum.photos/200/203",
+            },
             location: {
                 city: 'Minsk',
                 country: 'Belarus'
@@ -72,7 +76,7 @@ export const usersReducer = (state = initialProfileState, action: CombinedUsersA
                     return user
                 })
             }
-        case FOLLOW:
+        case UNFOLLOW:
             return {
                 ...state,
                 users: state.users.map(u => {
@@ -82,7 +86,6 @@ export const usersReducer = (state = initialProfileState, action: CombinedUsersA
                     return u
                 })
             }
-
         case SET_USERS:
             return {
                 ...state, users: [...state.users, ...action.users]

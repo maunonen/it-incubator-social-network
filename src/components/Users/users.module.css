@@ -2,3 +2,6 @@
     width: 200px;
     height: 200px;
 }
+.selected {
+    font-weight: bold;
+}

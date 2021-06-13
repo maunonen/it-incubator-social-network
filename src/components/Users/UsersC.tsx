@@ -7,23 +7,44 @@ export type CombinedPropsType = MapStateToPropsUsersType & MapDispatchToPropsUse
 
 class UsersC extends React.Component<CombinedPropsType> {
 
-    constructor(props : CombinedPropsType) {
+    /*constructor(props : CombinedPropsType) {
         super(props);
-    }
-
+    }*/
 
 
     componentDidMount() {
         //@ts-ignore
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers([...response.data.items])
+            this.props.setTotalUsersCount(response.data.totalCount)
+            console.log(response.data)
+        });
+    }
+
+    onPageChanged = (pageNumber : number) => {
+        this.props.setCurrentPage(pageNumber)
+        //@ts-ignore
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
             this.props.setUsers([...response.data.items])
             console.log(response.data.items)
         });
     }
 
     render() {
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+        let pages : Array<number> = []
+        for (let i = 1 ; i <= pagesCount ; i++ ){
+            pages.push(i)
+        }
         return (
             <div>
+                <div>
+                    { pages.map(p => {
+                        return <span
+                            onClick={() => { this.onPageChanged(p) }}
+                            className={this.props.currentPage === p ? styles.selected : undefined }>{p}</span>
+                    })}
+                </div>
                 {   this.props.users &&
                     this.props.users.map(u =>
                         <div key={u.id}>

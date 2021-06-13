@@ -3,7 +3,8 @@ import {type} from "os";
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
-
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 
 export type UserType = {
     id: number
@@ -29,7 +30,7 @@ export type LocationType = {
 
 let initialProfileState = {
     users: [
-        {
+        /*{
             id: 1,
             photoUrl: 'https://picsum.photos/200/300',
             followed: false,
@@ -44,8 +45,8 @@ let initialProfileState = {
                 country: 'Belarus'
             },
 
-        },
-        {
+        },*/
+        /*{
             id: 2,
             photoUrl: 'https://picsum.photos/200/300',
             followed: true,
@@ -55,13 +56,16 @@ let initialProfileState = {
                 city: 'Moscow',
                 country: 'Russia'
             },
-        },
+        },*/
     ] as Array<UserType>,
-    newPostText: 'it-kamasutra'
+    newPostText: 'it-kamasutra',
+    pageSize : 3,
+    totalUsersCount: 0,
+    currentPage : 2
 }
 
 export type InitialUsersStateType = typeof initialProfileState
-export type CombinedUsersActionType = FollowACType | UnfollowACType | SetUserACType
+export type CombinedUsersActionType = FollowACType | UnfollowACType | SetUserACType | SetCurrentPageACType | SetTotalUserCountACType
 
 
 export const usersReducer = (state = initialProfileState, action: CombinedUsersActionType) => {
@@ -88,7 +92,16 @@ export const usersReducer = (state = initialProfileState, action: CombinedUsersA
             }
         case SET_USERS:
             return {
-                ...state, users: [...state.users, ...action.users]
+                ...state, users: [ ...action.users]
+            }
+
+        case SET_CURRENT_PAGE:
+            return {
+                ...state, currentPage: action.currentPage
+            }
+        case SET_TOTAL_USERS_COUNT:
+            return {
+                ...state, totalUsersCount: action.totalUsersCount
             }
         default:
             return state
@@ -108,11 +121,21 @@ export type SetUserACType = {
     type: typeof SET_USERS
     users : Array<UserType>
 }
+export type SetCurrentPageACType = {
+    type : typeof SET_CURRENT_PAGE
+    currentPage : number
+}
+export type SetTotalUserCountACType = {
+    type : typeof SET_TOTAL_USERS_COUNT
+    totalUsersCount : number
+}
 
 
 export const followAC = (userId: number) : FollowACType => ({type: FOLLOW, userId} as const)
 export const unfollowAC = (userId: number) : UnfollowACType => ({type: UNFOLLOW, userId} as const)
 export const setUsersAC = (users: Array<UserType>) : SetUserACType => ({type: SET_USERS, users} as const)
+export const setCurrentPageAC = (currentPage : number) : SetCurrentPageACType => ({ type : SET_CURRENT_PAGE, currentPage} as const)
+export const setTotalUsersCountAC = (totalUsersCount : number) : SetTotalUserCountACType => ({ type : SET_TOTAL_USERS_COUNT, totalUsersCount} as const)
 
 // export const addPostActionCreator = () => ({type: ADD_POST})
 // export const updateNewPostTextActionCreator = (text: any) => (

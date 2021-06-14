@@ -1,61 +1,43 @@
 import React from 'react'
 import styles from './users.module.css'
-import * as axios from "axios";
+import {MapDispatchToPropsUsersType, MapStateToPropsUsersType} from "./UsersContainer";
+import {UserType} from "../../redux/users-reducer";
 
-let Users = (props: any) => {
+export type OwnUsersPropsType = {
+    onPageChanged: (pageNumber: number) => void
+}
 
-    let getUsers = () => {
-        // @ts-ignore
-        /*axios.get("https://social-network.samuraijs.com/users").then(response => {
-            props.setUsers([...response.data.items])
-        });*/
+export type CombinedUsersPropsType = MapStateToPropsUsersType & MapDispatchToPropsUsersType & OwnUsersPropsType
+
+const Users = (props: CombinedUsersPropsType) => {
+
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    let pages: Array<number> = []
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
 
-    // @ts-ignore
-    // if (props.users.length === 0) {
-    //     props.setUsers(
-    //         [
-    //             {
-    //                 id: 1,
-    //                 photoUrl: 'https://picsum.photos/200/300',
-    //                 followed: false,
-    //                 fullName: 'Alex',
-    //                 status: 'online',
-    //                 location: {
-    //                     city: 'Minsk',
-    //                     country: 'Belarus'
-    //                 },
-    //
-    //             },
-    //             {
-    //                 id: 2,
-    //                 photoUrl: 'https://picsum.photos/200/300',
-    //                 followed: true,
-    //                 fullName: 'Jenny',
-    //                 status: 'offline',
-    //                 location: {
-    //                     city: 'Moscow',
-    //                     country: 'Russia'
-    //                 },
-    //             },
-    //         ]
-    //     )
-    //
-    // }
-
-    props.users.forEach(u => {
-        console.log(u.photos.small)
-    })
     return (
         <div>
+            <div>
+                {pages.map(p => {
+                    return <span
+                        onClick={() => {
+                            props.onPageChanged(p)
+                        }}
+                        className={props.currentPage === p ? styles.selected : undefined}>{p}</span>
+                })}
+            </div>
             {
-                // @ts-ignore
+                props.users &&
                 props.users.map(u =>
                     <div key={u.id}>
                         <span>
                             <div>
-                                <img src={u.photos.small ? u.photos.small : "https://picsum.photos/200/201"}
-                                     className={styles.userPhoto}/>
+                                <img
+                                    src={u.photos?.small ? "https://picsum.photos/200/202" : "https://picsum.photos/200/201"}
+                                    className={styles.userPhoto}
+                                />
                             </div>
                             <div>
                                 {u.followed ? <button
@@ -69,17 +51,15 @@ let Users = (props: any) => {
                             </div>
                         </span>
                         <span>
-                                <span>
-                                    <div>{u.fullName && u.fullName}</div>
-                                    <div>{u.status && u.status}</div>
-                                </span>
-                            {
-                                u.location &&
-                                <span>
-                                    <div>{u.location.country && u.location.country}</div>
-                                    <div>{u.location.city && u.location.city}</div>
-                                </span>
-                            }
+                            <span>
+                                <div>{u.fullName}</div>
+                                <div>{u.name}</div>
+                                <div>{u.status}</div>
+                            </span>
+                            <span>
+                                <div>{u.location?.country}</div>
+                                <div>{u.location?.city}</div>
+                            </span>
                         </span>
                     </div>
                 )

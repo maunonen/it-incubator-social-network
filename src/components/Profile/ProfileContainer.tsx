@@ -38,18 +38,18 @@ class ProfileContainer extends React.Component<CombinedProfileContainerPropsType
 }
 
 export type MapStateToPropsProfileContainerType = {
-    profile : ProfileType
+    profile : ProfileType | null
 }
 
 export type MapDispatchToPropsProfileContainerType = {
     setUserProfile : ( profile : ProfileType) => void
 }
 
-let mapStateToProps = (state : any) => ({
+let mapStateToProps = (state : AppStateType) : MapStateToPropsProfileContainerType => ({
         profile : state.profilePage.profile
     }
 )
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer)
 
-export default connect<MapStateToPropsProfileContainerType, MapDispatchToPropsProfileContainerType, {}, AppStateType >(mapStateToProps, { setUserProfile})(WithUrlDataContainerComponent)
+export default connect<MapStateToPropsProfileContainerType, MapDispatchToPropsProfileContainerType, {}, AppStateType>(mapStateToProps, { setUserProfile})(WithUrlDataContainerComponent)

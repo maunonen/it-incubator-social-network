@@ -11,27 +11,27 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 
 
 /*const App: React.FC<RootStateType> = (props) => {*/
-const App: React.FC = (props : any ) => {
+const App: React.FC = (props: any) => {
 
     return (
 
-            <div className="app-wrapper">
-                <Header/>
-                <Navbar/>
-                <div className='app-wrapper-content'>
-                    <Route
-                        path='/dialogs'
-                        render={() => <DialogsContainer/>}/>
-                    <Route
-                        path='/profile'
-                        render={() => <ProfileContainer
-                        />}/>
-                     <Route
-                        path='/users'
-                        render={() => <UsersContainer/>}
-                     />
-                </div>
+        <div className="app-wrapper">
+            <Header/>
+            <Navbar/>
+            <div className='app-wrapper-content'>
+                <Route
+                    path='/dialogs'
+                    render={() => <DialogsContainer/>}/>
+                <Route
+                    path='/profile/:userId?'
+                    render={() => <ProfileContainer
+                    />}/>
+                <Route
+                    path='/users'
+                    render={() => <UsersContainer/>}
+                />
             </div>
+        </div>
 
     );
 }

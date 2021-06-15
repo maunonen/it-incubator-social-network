@@ -19,7 +19,8 @@ const ProfileInfo : React.FC<ProfileInfoPropsType> = ( props ) => {
                 <img alt={"content img"} src="https://avia-all.ru/uploads/posts/2019-04/medium/1554499688_2.jpg"/>
             </div>
             <div className={classes.descriptionBlock}>
-                <img src={ props.profile.photos && props.profile.photos.large ? props.profile.photos.large : undefined}/>
+                <img src={ props.profile.photos.large ? props.profile.photos.large : undefined}/>
+                <p>{ props.profile.aboutMe}</p>
                 <p>{ props.profile.fullName}</p>
                 <p>{ props.profile.contacts.website}</p>
                 <p>{ props.profile.contacts.mainLink}</p>

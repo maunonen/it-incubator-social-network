@@ -7,9 +7,10 @@ import {
 
 
 const Profile : React.FC<CombinedProfileContainerPropsType> = ( props ) => {
+    console.log('Profile props', props)
     return (
         <div>
-            <ProfileInfo profile={props.profile} />
+            { props.profile && <ProfileInfo profile={props.profile} /> }
             <MyPostsContainer/>
         </div>
     )

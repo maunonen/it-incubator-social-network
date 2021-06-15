@@ -38,13 +38,17 @@ class UsersContainer extends React.Component<CombinedContainerUsersPropsType> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
+        console.log("Fetching data")
         //@ts-ignore
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
             this.props.toggleIsFetching(false)
             this.props.setUsers([...response.data.items])
             this.props.setTotalUsersCount(response.data.totalCount)
-            console.log(response.data)
-        });
+            console.log('Users data DidMount', response.data)
+        }).catch( ( err : any) => {
+            console.log(err)
+            this.props.toggleIsFetching(false)
+        }) ;
     }
 
     onPageChanged = (pageNumber: number) => {
@@ -54,7 +58,7 @@ class UsersContainer extends React.Component<CombinedContainerUsersPropsType> {
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
             this.props.setUsers([...response.data.items])
             this.props.toggleIsFetching(false)
-            console.log(response.data.items)
+            console.log('Users data', response.data.items)
         });
     }
 

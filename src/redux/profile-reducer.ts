@@ -1,5 +1,6 @@
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const SET_USER_PROFILE = 'SET_USER_PROFILE'
 
 
 export type PostType = {
@@ -43,7 +44,9 @@ let initialProfileState = {
 
 export type InitialStateType = typeof initialProfileState
 
-export type CombinedProfileActionCreatorType = AddPostActionCreatorType | UpdateNewPostTextActionCreatorType
+export type CombinedProfileActionCreatorType = AddPostActionCreatorType
+    | UpdateNewPostTextActionCreatorType
+    | SetUserProfileType
 
 export const profileReducer = (state = initialProfileState, action: CombinedProfileActionCreatorType) : InitialStateType => {
     switch (action.type) {
@@ -63,7 +66,11 @@ export const profileReducer = (state = initialProfileState, action: CombinedProf
                 ...state,
                 newPostText : action.newPostText
             }
-        default:
+        case SET_USER_PROFILE:
+            return {
+                ...state, profile: action.profile
+            }
+            default:
             return state
     }
 
@@ -77,8 +84,12 @@ type UpdateNewPostTextActionCreatorType = {
     type : typeof UPDATE_NEW_POST_TEXT
     newPostText : string
 }
+type SetUserProfileType = {
+    type : typeof SET_USER_PROFILE,
+    profile : ProfileType
+}
 
 export const addPostActionCreator = ( ) : AddPostActionCreatorType => ({type: ADD_POST })
 export const updateNewPostTextActionCreator = (newPostText: string) : UpdateNewPostTextActionCreatorType => (
     {type: UPDATE_NEW_POST_TEXT, newPostText })
-
+export const setUserProfile = ( profile : ProfileType) : SetUserProfileType => ({ type : SET_USER_PROFILE, profile : profile})

@@ -7,6 +7,7 @@ import Profile from "./components/Profile/Profile";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import Users from "./components/Users/Users";
 import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 
 /*const App: React.FC<RootStateType> = (props) => {*/
@@ -20,15 +21,10 @@ const App: React.FC = (props : any ) => {
                 <div className='app-wrapper-content'>
                     <Route
                         path='/dialogs'
-                        render={() => <DialogsContainer
-                            /*dialogs={props.dialogsPage.dialogs}*/
-                            /*messages={props.dialogsPage.messages}*/
-                        />}/>
+                        render={() => <DialogsContainer/>}/>
                     <Route
                         path='/profile'
-                        render={() => <Profile
-                            /*posts={props.profilePage.posts}*/
-                            /*addPost={props.profilePage.addPost}*/
+                        render={() => <ProfileContainer
                         />}/>
                      <Route
                         path='/users'

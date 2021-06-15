@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './users.module.css'
 import {MapDispatchToPropsUsersType, MapStateToPropsUsersType} from "./UsersContainer";
 import {UserType} from "../../redux/users-reducer";
+import {NavLink} from 'react-router-dom';
 
 export type OwnUsersPropsType = {
     onPageChanged: (pageNumber: number) => void
@@ -34,10 +35,12 @@ const Users = (props: CombinedUsersPropsType) => {
                     <div key={u.id}>
                         <span>
                             <div>
-                                <img
-                                    src={u.photos?.small ? "https://picsum.photos/200/202" : "https://picsum.photos/200/201"}
-                                    className={styles.userPhoto}
-                                />
+                                <NavLink to={'/profile/' + u.id }>
+                                    <img
+                                        src={u.photos?.small ? "https://picsum.photos/200/202" : "https://picsum.photos/200/201"}
+                                        className={styles.userPhoto}
+                                    />
+                                </NavLink>
                             </div>
                             <div>
                                 {u.followed ? <button

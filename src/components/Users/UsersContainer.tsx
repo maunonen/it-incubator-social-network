@@ -46,27 +46,12 @@ class UsersContainer extends React.Component<CombinedContainerUsersPropsType> {
             console.log(err)
             this.props.toggleIsFetching(false)
         });
-        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-        //     withCredentials:true,
-        //     headers: {
-        //         "API-KEY" : "2b182661-e190-4de5-9b14-eb5b65f7ac8a"
-        //     }
-        //     //@ts-ignore
-        // })
-
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
         this.props.toggleIsFetching(true)
         //@ts-ignore
-        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
-        //     withCredentials: true,
-        //     headers: {
-        //         "API-KEY": "2b182661-e190-4de5-9b14-eb5b65f7ac8a"
-        //     }
-        //     //@ts-ignore
-        // })
         usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
             this.props.setUsers([...data.items])
             this.props.toggleIsFetching(false)
@@ -109,30 +94,6 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsUsersType => {
         isFetching: state.usersPage.isFetching
     }
 }
-
-// let mapDispatchToProps = (dispatch: Dispatch<CombinedUsersActionType>): MapDispatchToPropsUsersType => {
-//     return {
-//         follow: (userId: number) => {
-//             dispatch(followAC(userId))
-//         },
-//         unfollow: (userId: number) => {
-//             dispatch(unfollowAC(userId))
-//         },
-//         setUsers: (users: Array<UserType>) => {
-//             dispatch(setUsersAC(users))
-//         },
-//         setCurrentPage: (currentPage: number) => {
-//             dispatch(setCurrentPageAC(currentPage))
-//         },
-//         setTotalUsersCount: (totalCount: number) => {
-//             dispatch(setTotalUsersCountAC(totalCount))
-//         },
-//         toggleIsFetching: (isFetching: boolean) => {
-//             dispatch(toggleIsFetchingAC(isFetching))
-//         }
-//     }
-// }
-
 
 export default connect<MapStateToPropsUsersType, MapDispatchToPropsUsersType, {}, AppStateType>(mapStateToProps, {
     follow,

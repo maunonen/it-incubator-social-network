@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from "react-redux";
 import {
-    CombinedUsersActionType,
     follow,
     setCurrentPage, setTotalUsersCount,
     setUsers, toggleIsFetching,
@@ -9,11 +8,9 @@ import {
     UserType
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
-import * as axios from "axios";
 import Users, {OwnUsersPropsType} from "./Users";
-import loading from "../../img/lodading.gif"
 import Preloader from "../common/Preloader/Preloader";
+import {usersAPI} from "../../api/api";
 
 
 export type MapStateToPropsUsersType = {
@@ -40,37 +37,40 @@ class UsersContainer extends React.Component<CombinedContainerUsersPropsType> {
         this.props.toggleIsFetching(true)
         console.log("Fetching data")
         //@ts-ignore
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-            withCredentials:true,
-            headers: {
-                "API-KEY" : "2b182661-e190-4de5-9b14-eb5b65f7ac8a"
-            }
-            //@ts-ignore
-        }).then(response => {
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
             this.props.toggleIsFetching(false)
-            this.props.setUsers([...response.data.items])
-            this.props.setTotalUsersCount(response.data.totalCount)
-            console.log('Users data DidMount', response.data)
-        }).catch( ( err : any) => {
+            this.props.setUsers([...data.items])
+            this.props.setTotalUsersCount(data.totalCount)
+            console.log('Users data DidMount', data)
+        }).catch((err: any) => {
             console.log(err)
             this.props.toggleIsFetching(false)
-        }) ;
+        });
+        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+        //     withCredentials:true,
+        //     headers: {
+        //         "API-KEY" : "2b182661-e190-4de5-9b14-eb5b65f7ac8a"
+        //     }
+        //     //@ts-ignore
+        // })
+
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
         this.props.toggleIsFetching(true)
         //@ts-ignore
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
-            withCredentials:true,
-            headers: {
-                "API-KEY" : "2b182661-e190-4de5-9b14-eb5b65f7ac8a"
-            }
-            //@ts-ignore
-        }).then(response => {
-            this.props.setUsers([...response.data.items])
+        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
+        //     withCredentials: true,
+        //     headers: {
+        //         "API-KEY": "2b182661-e190-4de5-9b14-eb5b65f7ac8a"
+        //     }
+        //     //@ts-ignore
+        // })
+        usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
+            this.props.setUsers([...data.items])
             this.props.toggleIsFetching(false)
-            console.log('Users data', response.data.items)
+            console.log('Users data', data.items)
         });
     }
 

@@ -46,24 +46,28 @@ const Users = (props: CombinedUsersPropsType) => {
                             </div>
                             <div>
                                 {u.followed
-                                    ? <button onClick={() => {
+                                    ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                        props.toggleFollowingProgress(true, u.id)
                                         usersAPI.follow(u.id)
                                             //@ts-ignore
                                             .then(data => {
                                                 if (data.resultCode === 0) {
                                                     props.unfollow(u.id)
                                                 }
+                                                props.toggleFollowingProgress(false, u.id)
                                             }).catch((err: any) => {
                                             console.log(err)
                                         });
                                     }}>Unfollow</button>
-                                    : (<button onClick={() => {
+                                    : (<button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                        props.toggleFollowingProgress(true, u.id)
                                         usersAPI.unfollow(u.id)
                                             //@ts-ignore
                                             .then(data => {
                                                 if (data.resultCode === 0) {
                                                     props.follow(u.id)
                                                 }
+                                                props.toggleFollowingProgress(false, u.id)
                                             }).catch((err: any) => {
                                             console.log(err)
                                         });

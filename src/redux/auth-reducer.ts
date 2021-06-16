@@ -16,8 +16,8 @@ export type CombinedUsersActionType = SetUserDataType
 export const authReducer = (state = initialAuthState, action: CombinedUsersActionType): InitialAuthStateType => {
     switch (action.type) {
         case SET_USER_DATA:
-            console.log(state)
-            console.log(action)
+            // console.log(state)
+            // console.log(action)
             return {
                 ...state,
                 ...action.data,

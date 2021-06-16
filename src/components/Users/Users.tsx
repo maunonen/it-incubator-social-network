@@ -54,7 +54,8 @@ const Users = (props: CombinedUsersPropsType) => {
                                             }
                                             //@ts-ignore
                                         }).then(response => {
-                                            if (response.data.resultCode) {
+                                            console.log(response.data)
+                                            if (response.data.resultCode === 0) {
                                                 props.unfollow(u.id)
                                             }
                                         }).catch((err: any) => {
@@ -72,7 +73,8 @@ const Users = (props: CombinedUsersPropsType) => {
                                             }
                                             //@ts-ignore
                                         ).then(response => {
-                                            if ( response.data.resultCode) {
+                                            console.log(response.data)
+                                            if ( response.data.resultCode === 0) {
                                                 props.follow(u.id)
                                             }
                                         }).catch((err: any) => {

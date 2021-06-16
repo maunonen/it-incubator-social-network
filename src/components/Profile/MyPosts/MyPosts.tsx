@@ -1,25 +1,16 @@
 import React from 'react';
 import classes from './MyPosts.module.css'
 import Post, {PostType} from "./Post/Post";
-import {ProfilePageType} from "../../../redux/state";
 import {MapDispatchToPropsMyPostType, MapStateToPropsMyPostType} from "./MyPostsContainer";
-import {updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
-
 
 export type CombinedPropsMyPostsType = MapStateToPropsMyPostType & MapDispatchToPropsMyPostType
 
 const MyPosts : React.FC<CombinedPropsMyPostsType> = ( props ) => {
 
-    /*const addPost = (  event: React.MouseEvent<HTMLElement>) => {
-        console.log('Add post');
-    }*/
-
-    //let newPostElement  = React.createRef();
     let newPostElement  = React.createRef<HTMLTextAreaElement>();
 
     const addPost = () => {
         if(newPostElement.current) {
-            /*let text  = newPostElement.current.value;*/
             props.addPost();
         } else {
             console.log("Value not defined");

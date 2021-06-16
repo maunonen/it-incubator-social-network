@@ -24,5 +24,15 @@ export const usersAPI = {
         return instance.post(`follow/${userId}`)
             //@ts-ignore
             .then(response => response.data)
+    },
+    authMe() {
+        return instance.get('auth/me')
+            //@ts-ignore
+            .then( responce  => responce.data)
+    },
+    getProfile(userId : number) {
+        return instance.get(`profile/${userId}`)
+            //@ts-ignore
+            .then( responce  => responce.data)
     }
 }

@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
@@ -22,7 +24,7 @@ export type ContactType = {
 
 export type PhotosType = {
     small: string | null
-    large : string | null
+    large: string | null
 }
 
 export type ProfileType = {
@@ -30,17 +32,17 @@ export type ProfileType = {
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
-    aboutMe : string
+    aboutMe: string
     contacts: ContactType
-    photos : PhotosType
+    photos: PhotosType
 }
 
 let initialProfileState = {
     posts: [
         {id: 1, message: 'Hello', likesCount: 12}] as Array<PostType>,
-    profile : null as ProfileType | null,
+    profile: null as ProfileType | null,
     newPostText: "",
-    status : ""
+    status: ""
 }
 
 export type InitialStateType = typeof initialProfileState
@@ -49,7 +51,7 @@ export type CombinedProfileActionCreatorType = AddPostActionCreatorType
     | UpdateNewPostTextActionCreatorType
     | SetUserProfileType
 
-export const profileReducer = (state = initialProfileState, action: CombinedProfileActionCreatorType) : InitialStateType => {
+export const profileReducer = (state = initialProfileState, action: CombinedProfileActionCreatorType): InitialStateType => {
     switch (action.type) {
         case ADD_POST:
             let newPost = {
@@ -65,32 +67,42 @@ export const profileReducer = (state = initialProfileState, action: CombinedProf
         case UPDATE_NEW_POST_TEXT:
             return {
                 ...state,
-                newPostText : action.newPostText
+                newPostText: action.newPostText
             }
         case SET_USER_PROFILE:
             return {
                 ...state, profile: action.profile
             }
-            default:
+        default:
             return state
     }
 
 }
 type AddPostActionCreatorType = {
-    type : typeof ADD_POST
+    type: typeof ADD_POST
     /*newPostText : string*/
 }
 
 type UpdateNewPostTextActionCreatorType = {
-    type : typeof UPDATE_NEW_POST_TEXT
-    newPostText : string
+    type: typeof UPDATE_NEW_POST_TEXT
+    newPostText: string
 }
 type SetUserProfileType = {
-    type : typeof SET_USER_PROFILE,
-    profile : ProfileType
+    type: typeof SET_USER_PROFILE,
+    profile: ProfileType
 }
 
-export const addPostActionCreator = ( ) : AddPostActionCreatorType => ({type: ADD_POST })
-export const updateNewPostTextActionCreator = (newPostText: string) : UpdateNewPostTextActionCreatorType => (
-    {type: UPDATE_NEW_POST_TEXT, newPostText })
-export const setUserProfile = ( profile : ProfileType) : SetUserProfileType => ({ type : SET_USER_PROFILE, profile : profile})
+export const addPostActionCreator = (): AddPostActionCreatorType => ({type: ADD_POST})
+export const updateNewPostTextActionCreator = (newPostText: string): UpdateNewPostTextActionCreatorType => (
+    {type: UPDATE_NEW_POST_TEXT, newPostText})
+export const setUserProfile = (profile: ProfileType): SetUserProfileType => ({type: SET_USER_PROFILE, profile: profile})
+
+export const getProfile = (userId: number) => {
+    return (dispatch: any) => {
+        usersAPI.getProfile(userId)
+            //@ts-ignore
+            .then(data => {
+                dispatch(setUserProfile(data))
+            });
+    }
+}

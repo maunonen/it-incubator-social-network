@@ -29,7 +29,7 @@ const Users = (props: CombinedUsersPropsType) => {
                             props.onPageChanged(p)
                         }}
                         className={props.currentPage === p ? styles.selected : undefined}>{p}</span>
-                })}
+                })}7
             </div>
             {
                 props.users &&
@@ -47,30 +47,10 @@ const Users = (props: CombinedUsersPropsType) => {
                             <div>
                                 {u.followed
                                     ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                                        props.toggleFollowingProgress(true, u.id)
-                                        usersAPI.follow(u.id)
-                                            //@ts-ignore
-                                            .then(data => {
-                                                if (data.resultCode === 0) {
-                                                    props.unfollow(u.id)
-                                                }
-                                                props.toggleFollowingProgress(false, u.id)
-                                            }).catch((err: any) => {
-                                            console.log(err)
-                                        });
+                                        props.unfollow(u.id)
                                     }}>Unfollow</button>
                                     : (<button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                                        props.toggleFollowingProgress(true, u.id)
-                                        usersAPI.unfollow(u.id)
-                                            //@ts-ignore
-                                            .then(data => {
-                                                if (data.resultCode === 0) {
-                                                    props.follow(u.id)
-                                                }
-                                                props.toggleFollowingProgress(false, u.id)
-                                            }).catch((err: any) => {
-                                            console.log(err)
-                                        });
+                                        props.follow(u.id)
                                     }}>Follow</button>)}
                             </div>
                         </span>

@@ -2,23 +2,14 @@ import React from 'react';
 import Header from "./Header";
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
-import {setAuthUserData, SetUserDataType} from "../../redux/auth-reducer";
-import {usersAPI} from "../../api/api";
+import {getAuthUser} from "../../redux/auth-reducer";
 
 export type CombinedHeaderContainer = MapStateToPropsHeaderContainerType & MapDispatchHeaderContainerType
 
 class HeaderContainer extends React.Component<CombinedHeaderContainer> {
 
     componentDidMount() {
-        usersAPI.authMe()
-            //@ts-ignore
-            .then(data => {
-                if (data.resultCode === 0) {
-                    //@ts-ignore
-                    let {login, email, id: userId} = data.data
-                    this.props.setAuthUserData(userId, email, login)
-                }
-            });
+        this.props.getAuthUser()
     }
 
     render() {
@@ -32,8 +23,9 @@ export type MapStateToPropsHeaderContainerType = {
 }
 
 export type MapDispatchHeaderContainerType = {
-    setAuthUserData: (userId: number, email: string, login: string) => SetUserDataType
+    getAuthUser: () => void
 }
+
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsHeaderContainerType => ({
     isAuth: state.auth.isAuth,
@@ -41,4 +33,4 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsHeaderContainerTyp
 })
 
 
-export default connect<MapStateToPropsHeaderContainerType, MapDispatchHeaderContainerType, {}, AppStateType>(mapStateToProps, {setAuthUserData})(HeaderContainer)
+export default connect<MapStateToPropsHeaderContainerType, MapDispatchHeaderContainerType, {}, AppStateType>(mapStateToProps, {getAuthUser})(HeaderContainer)

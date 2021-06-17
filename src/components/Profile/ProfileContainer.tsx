@@ -1,11 +1,10 @@
 import React from 'react';
 import Profile from "./Profile";
-import * as axios from "axios";
+
 import {connect} from "react-redux";
-import {ProfileType, setUserProfile} from "../../redux/profile-reducer";
+import {getProfile, ProfileType} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {usersAPI} from "../../api/api";
 
 
 // Type for ProfileContainerPropsType
@@ -23,16 +22,12 @@ export type CombinedProfileContainerPropsType = MapStateToPropsProfileContainerT
 class ProfileContainer extends React.Component<CombinedProfileContainerPropsType> {
 
     componentDidMount() {
-        let userId = this.props.match.params.userId
+        let userId = +this.props.match.params.userId
         if (!userId) {
-            userId = '2'
+            userId = 2
         }
+        this.props.getProfile(userId)
         //@ts-ignore
-        usersAPI.getProfile(userId)
-            //@ts-ignore
-            .then(data => {
-                this.props.setUserProfile(data)
-            });
     }
 
     render() {
@@ -49,7 +44,7 @@ export type MapStateToPropsProfileContainerType = {
 }
 
 export type MapDispatchToPropsProfileContainerType = {
-    setUserProfile: (profile: ProfileType) => void
+    getProfile: (userId: number) => void
 }
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsProfileContainerType => ({
@@ -59,4 +54,4 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsProfileContainerType
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer)
 
-export default connect<MapStateToPropsProfileContainerType, MapDispatchToPropsProfileContainerType, {}, AppStateType>(mapStateToProps, {setUserProfile})(WithUrlDataContainerComponent)
+export default connect<MapStateToPropsProfileContainerType, MapDispatchToPropsProfileContainerType, {}, AppStateType>(mapStateToProps, {getProfile})(WithUrlDataContainerComponent)

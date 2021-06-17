@@ -97,7 +97,7 @@ export const updateNewPostTextActionCreator = (newPostText: string): UpdateNewPo
     {type: UPDATE_NEW_POST_TEXT, newPostText})
 export const setUserProfile = (profile: ProfileType): SetUserProfileType => ({type: SET_USER_PROFILE, profile: profile})
 
-export const getProfile = (userId: number) => {
+export const getUserProfile = (userId: number) => {
     return (dispatch: any) => {
         usersAPI.getProfile(userId)
             //@ts-ignore

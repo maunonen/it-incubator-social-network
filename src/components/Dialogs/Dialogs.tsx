@@ -3,6 +3,7 @@ import classes from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem';
 import Message, {MessageType} from './Message/Message';
 import {MapDispatchToPropsDialogsType, MapStateToPropsDialogsType} from "./DialogsContainer";
+import { Redirect } from 'react-router-dom';
 
 export type OwnPropsType  = {
     title? : string
@@ -26,6 +27,10 @@ const Dialogs : React.FC<DialogsPropsType> = ( props ) => {
             props.sendMessage()
             /*body = ''*/
         }
+    }
+
+    if ( !props.isAuth ) {
+        return <Redirect to={"/login"}/>
     }
 
     return (

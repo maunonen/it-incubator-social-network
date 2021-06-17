@@ -18,6 +18,7 @@ export type MapStateToPropsDialogsType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
     newMessageBody : string
+    isAuth : boolean
 }
 
 export type MapDispatchToPropsDialogsType = {
@@ -30,8 +31,8 @@ let mapStateToProps = (state : AppStateType): MapStateToPropsDialogsType => {
         // dialogsPage: state.dialogsPage,
         dialogs: state.dialogsPage.dialogs,
         messages: state.dialogsPage.messages,
-        newMessageBody: state.dialogsPage.newMessageBody
-
+        newMessageBody: state.dialogsPage.newMessageBody,
+        isAuth : state.auth.isAuth
     }
 }
 

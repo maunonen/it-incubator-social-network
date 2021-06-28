@@ -7,9 +7,12 @@ import {
     sendMessageActionCreator,
     updateNewMessageActionCreator
 } from "../../redux/dialogs-reducer";
-import { Dispatch } from 'redux'
+import {compose, Dispatch} from 'redux'
 import {connect }  from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
+import {Redirect} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {component} from "../../js/lesson1";
 
 
 
@@ -25,6 +28,8 @@ export type MapDispatchToPropsDialogsType = {
     updateNewMessageBody : (body : string ) => void
     sendMessage : () => void
 }
+
+let AuthRedirectComponent = withAuthRedirect(Dialogs)
 
 let mapStateToProps = (state : AppStateType): MapStateToPropsDialogsType => {
     return {
@@ -47,7 +52,12 @@ let mapDispatchToProps  = (dispatch : Dispatch<CombinedDialogActionType>) : MapD
     }
 }
 
+// export default compose(
+//     connect<MapStateToPropsDialogsType, MapDispatchToPropsDialogsType, OwnPropsType, AppStateType>(mapStateToProps, mapDispatchToProps),
+//     withAuthRedirect
+// )(Dialogs)
+
 // in case we don't have own props put emty object {}
 // const DialogsContainer = connect<MapStateToPropsDialogsType, MapDispatchToPropsDialogsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(Dialogs);
-const DialogsContainer = connect<MapStateToPropsDialogsType, MapDispatchToPropsDialogsType, OwnPropsType, AppStateType>(mapStateToProps, mapDispatchToProps)(Dialogs);
+const DialogsContainer = connect<MapStateToPropsDialogsType, MapDispatchToPropsDialogsType, OwnPropsType, AppStateType>(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
 export default DialogsContainer

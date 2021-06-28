@@ -13,24 +13,16 @@ export type DialogsPropsType = MapStateToPropsDialogsType & MapDispatchToPropsDi
 
 const Dialogs : React.FC<DialogsPropsType> = ( props ) => {
 
-    // let state = props.dialogsPage
 
     let newMessageElement  = React.createRef<HTMLTextAreaElement>();
-    // const onNewMessageChanges = (e : ChangeEventHandler<HTMLTextAreaElement>) => {
     const onNewMessageChanges = (e : any) => {
         let body = e.target.value
         props.updateNewMessageBody(body);
     }
     const onSendMessageClick = () => {
         if ( newMessageElement.current) {
-            /*let body = newMessageElement.current.value*/
             props.sendMessage()
-            /*body = ''*/
         }
-    }
-
-    if ( !props.isAuth ) {
-        return <Redirect to={"/login"}/>
     }
 
     return (

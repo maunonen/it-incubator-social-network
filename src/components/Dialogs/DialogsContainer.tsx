@@ -52,12 +52,12 @@ let mapDispatchToProps  = (dispatch : Dispatch<CombinedDialogActionType>) : MapD
     }
 }
 
-// export default compose(
-//     connect<MapStateToPropsDialogsType, MapDispatchToPropsDialogsType, OwnPropsType, AppStateType>(mapStateToProps, mapDispatchToProps),
-//     withAuthRedirect
-// )(Dialogs)
+export default compose<React.ComponentType>(
+    connect<MapStateToPropsDialogsType, MapDispatchToPropsDialogsType, OwnPropsType, AppStateType>(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(Dialogs)
 
 // in case we don't have own props put emty object {}
 // const DialogsContainer = connect<MapStateToPropsDialogsType, MapDispatchToPropsDialogsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(Dialogs);
-const DialogsContainer = connect<MapStateToPropsDialogsType, MapDispatchToPropsDialogsType, OwnPropsType, AppStateType>(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
-export default DialogsContainer
+// const DialogsContainer = connect<MapStateToPropsDialogsType, MapDispatchToPropsDialogsType, OwnPropsType, AppStateType>(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
+// export default DialogsContainer

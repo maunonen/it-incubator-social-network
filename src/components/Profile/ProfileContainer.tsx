@@ -60,20 +60,19 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsProfileContainerType
         profile: state.profilePage.profile,
     })
 
-let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
+// let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
+// let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
 
-// export default compose(
-//     connect <MapStateToPropsProfileContainerType, MapDispatchToPropsProfileContainerType,
-//         {}, AppStateType > (mapStateToProps, {getUserProfile}),
-//     withRouter,
-//     withAuthRedirect,
-// )(ProfileContainer)
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {getUserProfile}),
+    withRouter,
+    withAuthRedirect,
+)(ProfileContainer)
 
 
-export default connect <MapStateToPropsProfileContainerType, MapDispatchToPropsProfileContainerType,
-    {}, AppStateType > (mapStateToProps,
-        {
-            getUserProfile
-        }
-)(AuthRedirectComponent)
+// export default connect <MapStateToPropsProfileContainerType, MapDispatchToPropsProfileContainerType,
+//     {}, AppStateType > (mapStateToProps,
+//         {
+//             getUserProfile
+//         }
+// )(AuthRedirectComponent)

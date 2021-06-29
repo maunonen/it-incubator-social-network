@@ -8,6 +8,7 @@ const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS'
+// const GET_MY_ID = 'GET_MY_ID'
 
 export type UserType = {
     id: number
@@ -131,6 +132,11 @@ export const usersReducer = (state = initialProfileState, action: CombinedUsersA
     }
 
 }
+
+// export type GetMyId = {
+//     type : typeof GET_MY_ID
+//
+// }
 
 export type FollowType = {
     type: typeof FOLLOW

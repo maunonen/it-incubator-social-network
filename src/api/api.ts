@@ -28,11 +28,30 @@ export const usersAPI = {
     authMe() {
         return instance.get('auth/me')
             //@ts-ignore
-            .then( responce  => responce.data)
+            .then(response => response.data)
     },
-    getProfile(userId : number) {
+    // getProfile(userId: number) {
+    //     // return instance.get(`profile/${userId}`)
+    //     return profileAPI.getProfile(userId)
+    //     //@ts-ignore
+    //     .then(response => response.data)
+    // }
+}
+
+export const profileAPI = {
+    getProfile(userId: number): any {
         return instance.get(`profile/${userId}`)
             //@ts-ignore
-            .then( responce  => responce.data)
+            .then(responce => responce.data)
+    },
+    getUserStatus(userId: number): any {
+        return instance.get('profile/status/' + userId)
+        //@ts-ignore
+        then(response => response.data)
+    },
+    updateStatus(status: string) {
+        return instance.put('profile/status/', {status: status})
+        //@ts-ignore
+        then(response => response.data)
     }
 }

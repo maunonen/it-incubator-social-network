@@ -6,11 +6,15 @@ import {
 } from "./ProfileContainer";
 
 
-const Profile : React.FC<CombinedProfileContainerPropsType> = ( props ) => {
+const Profile: React.FC<CombinedProfileContainerPropsType> = (props) => {
     console.log('Profile props', props)
     return (
         <div>
-            { props.profile && <ProfileInfo profile={props.profile} /> }
+            {props.profile && <ProfileInfo
+                profile={props.profile}
+                status={props.status}
+                updateStatus={props.updateStatus}
+            />}
             <MyPostsContainer/>
         </div>
     )

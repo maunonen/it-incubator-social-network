@@ -5,14 +5,16 @@ import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatus from "./ProfileStatus";
 
 export type ProfileInfoPropsType = {
-    profile : ProfileType
+    profile: ProfileType
+    status: string
+    updateStatus: (status: string) => void
 }
 
-const ProfileInfo : React.FC<ProfileInfoPropsType> = ( props ) => {
+const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
     console.log(props.profile)
-    // if ( !props.profile) {
-    //     return <Preloader/>
-    // }
+    if ( !props.profile) {
+        return <Preloader/>
+    }
 
     return (
         <div>
@@ -20,12 +22,12 @@ const ProfileInfo : React.FC<ProfileInfoPropsType> = ( props ) => {
                 <img alt={"content img"} src="https://avia-all.ru/uploads/posts/2019-04/medium/1554499688_2.jpg"/>
             </div>
             <div className={classes.descriptionBlock}>
-                <img src={ props.profile.photos.large ? props.profile.photos.large : undefined}/>
-                <ProfileStatus status={"Hello my friends"}/>
-                <p>{ props.profile.aboutMe}</p>
-                <p>{ props.profile.fullName}</p>
-                <p>{ props.profile.contacts.website}</p>
-                <p>{ props.profile.contacts.mainLink}</p>
+                <img src={props.profile.photos.large ? props.profile.photos.large : undefined}/>
+                <ProfileStatus status={props.status} updateStatus={ props.updateStatus}/>
+                <p>{props.profile.aboutMe}</p>
+                <p>{props.profile.fullName}</p>
+                <p>{props.profile.contacts.website}</p>
+                <p>{props.profile.contacts.mainLink}</p>
             </div>
         </div>
     )

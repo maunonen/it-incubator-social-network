@@ -5,49 +5,40 @@ import {
     DialogType, InitialDialogsStateType,
     MessageType,
     sendMessageActionCreator,
-    updateNewMessageActionCreator
+
 } from "../../redux/dialogs-reducer";
 import {compose, Dispatch} from 'redux'
 import {connect }  from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {Redirect} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import {component} from "../../js/lesson1";
+
 
 
 
 export type MapStateToPropsDialogsType = {
-    // dialogsPage?: Array<InitialDialogsStateType>
     dialogs: Array<DialogType>
     messages: Array<MessageType>
-    newMessageBody : string
     isAuth : boolean
 }
 
 export type MapDispatchToPropsDialogsType = {
-    updateNewMessageBody : (body : string ) => void
-    sendMessage : () => void
+    sendMessage : (newMessageBody : string) => void
 }
 
 let AuthRedirectComponent = withAuthRedirect(Dialogs)
 
 let mapStateToProps = (state : AppStateType): MapStateToPropsDialogsType => {
     return {
-        // dialogsPage: state.dialogsPage,
         dialogs: state.dialogsPage.dialogs,
         messages: state.dialogsPage.messages,
-        newMessageBody: state.dialogsPage.newMessageBody,
         isAuth : state.auth.isAuth
     }
 }
 
 let mapDispatchToProps  = (dispatch : Dispatch<CombinedDialogActionType>) : MapDispatchToPropsDialogsType => {
     return {
-        updateNewMessageBody : ( body : string ) => {
-            dispatch(updateNewMessageActionCreator( body))
-        },
-        sendMessage : () => {
-            dispatch(sendMessageActionCreator( ))
+        sendMessage : (newMessageBody : string) => {
+            dispatch(sendMessageActionCreator( newMessageBody))
         }
     }
 }

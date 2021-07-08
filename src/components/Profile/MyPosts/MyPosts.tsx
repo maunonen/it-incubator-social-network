@@ -3,6 +3,8 @@ import classes from './MyPosts.module.css'
 import Post, {PostType} from "./Post/Post";
 import {MapDispatchToPropsMyPostType, MapStateToPropsMyPostType} from "./MyPostsContainer";
 import  {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import {maxLengthCreator, required} from "../../utils/validators";
+import {TextArea} from "../../common/FormsControls/FormsControls";
 
 export type CombinedPropsMyPostsType = MapStateToPropsMyPostType & MapDispatchToPropsMyPostType
 
@@ -35,12 +37,15 @@ export type AddPostFormType = {
     newPostBody : string
 }
 
+const maxLength10 = maxLengthCreator(10)
+
 const AddPostForm : React.FC<InjectedFormProps<AddPostFormType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <Field
+                validate={[required, maxLength10]}
                 name={"newPostBody"}
-                component={"textarea"}
+                component={TextArea}
                 placeholder={"Enter post body"}
             />
             <button>New post</button>

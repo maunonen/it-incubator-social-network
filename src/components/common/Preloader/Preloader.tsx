@@ -1,5 +1,5 @@
 import React from 'react'
-import loading from "../../../img/lodading.gif";
+import loading from "../../../assets/img/loader.gif";
 
 export type PreloaderType = {
 

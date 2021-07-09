@@ -30,6 +30,16 @@ export const usersAPI = {
             //@ts-ignore
             .then(response => response.data)
     },
+    login(email: string, password: string, rememberMe = false) {
+        return instance.post('auth/login', {email, password, rememberMe})
+            //@ts-ignore
+            .then(response => response.data);
+    },
+    logout() {
+        return instance.delete('auth/login')
+            //@ts-ignore
+            .then(response => response.data);
+    }
     // getProfile(userId: number) {
     //     // return instance.get(`profile/${userId}`)
     //     return profileAPI.getProfile(userId)

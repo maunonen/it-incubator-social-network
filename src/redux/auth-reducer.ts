@@ -1,5 +1,6 @@
 import {type} from "os";
 import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 const SET_USER_DATA = 'SET_USER_DATA'
 
@@ -22,7 +23,6 @@ export const authReducer = (state = initialAuthState, action: CombinedUsersActio
             return {
                 ...state,
                 ...action.data,
-                isAuth: true
             }
         default:
             return state
@@ -33,16 +33,17 @@ export const authReducer = (state = initialAuthState, action: CombinedUsersActio
 export type SetUserDataType = {
     type: typeof SET_USER_DATA
     data: {
-        userId: number
-        email: string
-        login: string
+        userId: number | null
+        email: string | null
+        login: string | null
+        isAuth : boolean
     }
 }
 
-export const setAuthUserData = (userId: number, email: string, login: string): SetUserDataType => ({
+export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, isAuth : boolean): SetUserDataType => ({
     type: SET_USER_DATA,
     data: {
-        userId, email, login,
+        userId, email, login, isAuth
     }
 })
 
@@ -54,8 +55,31 @@ export const getAuthUser = () => {
                 if (data.resultCode === 0) {
                     //@ts-ignore
                     let {login, email, id: userId} = data.data
-                    dispatch(setAuthUserData(userId, email, login))
+                    dispatch(setAuthUserData(userId, email, login, true))
                 }
             });
     }
+}
+export const login = (email : string, password : string, rememberMe : boolean) => (dispatch : any) => {
+        usersAPI.login(email, password, rememberMe)
+            //@ts-ignore
+            .then(data => {
+                if (data.resultCode === 0) {
+                    //@ts-ignore
+                    dispatch(getAuthUser())
+                }
+            });
+}
+
+export const logout = () => (dispatch : any) => {
+        usersAPI.logout()
+            //@ts-ignore
+            .then(data => {
+                if (data.resultCode === 0) {
+                    //@ts-ignore
+                    /*let {login, email, id: userId} = data.data*/
+                    /*dispatch(getAuthUser())*/
+                    dispatch(setAuthUserData(null, null, null, false))
+                }
+            });
 }

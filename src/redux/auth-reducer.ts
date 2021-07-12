@@ -1,6 +1,7 @@
 import {type} from "os";
 import {usersAPI} from "../api/api";
 import {Dispatch} from "redux";
+import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = 'SET_USER_DATA'
 
@@ -36,11 +37,11 @@ export type SetUserDataType = {
         userId: number | null
         email: string | null
         login: string | null
-        isAuth : boolean
+        isAuth: boolean
     }
 }
 
-export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, isAuth : boolean): SetUserDataType => ({
+export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, isAuth: boolean): SetUserDataType => ({
     type: SET_USER_DATA,
     data: {
         userId, email, login, isAuth
@@ -60,26 +61,31 @@ export const getAuthUser = () => {
             });
     }
 }
-export const login = (email : string, password : string, rememberMe : boolean) => (dispatch : any) => {
-        usersAPI.login(email, password, rememberMe)
-            //@ts-ignore
-            .then(data => {
-                if (data.resultCode === 0) {
-                    //@ts-ignore
-                    dispatch(getAuthUser())
+export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: any) => {
+    usersAPI.login(email, password, rememberMe)
+        //@ts-ignore
+        .then(data => {
+            if (data.resultCode === 0) {
+                //@ts-ignore
+                dispatch(getAuthUser())
+            } else {
+                let message = data.messages.length > 0 ? data.messages[0] : "Some error"
+                if (message) {
+                    dispatch(stopSubmit("login", {_error: message}))
                 }
-            });
+            }
+        });
 }
 
-export const logout = () => (dispatch : any) => {
-        usersAPI.logout()
-            //@ts-ignore
-            .then(data => {
-                if (data.resultCode === 0) {
-                    //@ts-ignore
-                    /*let {login, email, id: userId} = data.data*/
-                    /*dispatch(getAuthUser())*/
-                    dispatch(setAuthUserData(null, null, null, false))
-                }
-            });
+export const logout = () => (dispatch: any) => {
+    usersAPI.logout()
+        //@ts-ignore
+        .then(data => {
+            if (data.resultCode === 0) {
+                //@ts-ignore
+                /*let {login, email, id: userId} = data.data*/
+                /*dispatch(getAuthUser())*/
+                dispatch(setAuthUserData(null, null, null, false))
+            }
+        });
 }

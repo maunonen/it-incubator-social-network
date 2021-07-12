@@ -8,6 +8,7 @@ import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {Simulate} from "react-dom/test-utils";
 import { compose } from 'redux';
+import state from "../../redux/state";
 
 
 // Type for ProfileContainerPropsType
@@ -25,15 +26,15 @@ export type CombinedProfileContainerPropsType = MapStateToPropsProfileContainerT
 class ProfileContainer extends React.Component<CombinedProfileContainerPropsType> {
 
     componentDidMount() {
-        let userId = +this.props.match?.params?.userId
+        let userId : number | null = +this.props.match?.params?.userId
         if (!userId) {
-            userId = 17314
+            /*userId = 17314*/
             // this.props.getMyProfile()
+            userId = this.props.authorizedUserId
         }
         this.props.getUserProfile(userId)
         this.props.getStatus(userId)
         console.log('Status', this.props.status)
-        //@ts-ignore
     }
 
     render() {
@@ -55,12 +56,14 @@ export type MapStateToPropsProfileContainerType =
     {
         profile: ProfileType | null
         status : string
+        authorizedUserId : number | null
+        isAuth : boolean
     }
 
 export type MapDispatchToPropsProfileContainerType =
     {
-        getUserProfile: (userId: number) => void
-        getStatus : (userId : number ) => void
+        getUserProfile: (userId: number | null) => void
+        getStatus : (userId : number | null ) => void
         updateStatus : ( status : string) => void
         getMyProfile : () => void
     }
@@ -69,7 +72,9 @@ export type MapDispatchToPropsProfileContainerType =
 let mapStateToProps = (state: AppStateType): MapStateToPropsProfileContainerType => (
     {
         profile: state.profilePage.profile,
-        status : state.profilePage.status
+        status : state.profilePage.status,
+        authorizedUserId : state.auth.userId,
+        isAuth : state.auth.isAuth,
     })
 
 // let AuthRedirectComponent = withAuthRedirect(ProfileContainer)

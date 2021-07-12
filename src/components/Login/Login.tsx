@@ -6,6 +6,7 @@ import {connect, useSelector} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
+import classes from "../../components/common/FormsControls/FormsControls.module.css";
 
 
 type FormDataType = {
@@ -40,6 +41,10 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div>
                 <Field name={"rememberMe"} type={"checkbox"} component={Input}/>
             </div>
+            {
+                props.error &&
+                <div className={classes.formSummaryError}>{props.error}</div>
+            }
             <div>
                 <button>Login</button>
             </div>
@@ -58,7 +63,7 @@ export type LoginPropsType = {
 }
 
 const Login: React.FC<LoginPropsType> = (props) => {
-    const isAuth = useSelector((state : AppStateType)  => (state.auth.isAuth))
+    const isAuth = useSelector((state: AppStateType) => (state.auth.isAuth))
     const onSubmit = (formData: FormDataType) => {
         console.log(formData)
         props.login(formData.email, formData.password, formData.rememberMe)

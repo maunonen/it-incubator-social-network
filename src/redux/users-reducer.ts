@@ -199,6 +199,7 @@ export const toggleIsFetching = (isFetching: boolean): SetToggleIsFetchingType =
 export const getUsers = (currentPage: number, pageSize: number) => {
     return (dispatch: any) => {
         dispatch(toggleIsFetching(true))
+        dispatch(setCurrentPage(currentPage))
         //@ts-ignore
         usersAPI.getUsers(currentPage, pageSize).then(data => {
             dispatch(toggleIsFetching(false))

@@ -7,7 +7,7 @@ import {AppStateType} from "../../redux/redux-store";
 import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {Simulate} from "react-dom/test-utils";
-import { compose } from 'redux';
+import {compose} from 'redux';
 import state from "../../redux/state";
 
 
@@ -26,11 +26,14 @@ export type CombinedProfileContainerPropsType = MapStateToPropsProfileContainerT
 class ProfileContainer extends React.Component<CombinedProfileContainerPropsType> {
 
     componentDidMount() {
-        let userId : number | null = +this.props.match?.params?.userId
+        let userId: number | null = +this.props.match?.params?.userId
         if (!userId) {
             /*userId = 17314*/
             // this.props.getMyProfile()
-            userId = this.props.authorizedUserId
+            let userId = this.props.authorizedUserId
+            if (!userId) {
+                this.props.history.push("/login")
+            }
         }
         this.props.getUserProfile(userId)
         this.props.getStatus(userId)
@@ -51,30 +54,29 @@ class ProfileContainer extends React.Component<CombinedProfileContainerPropsType
 }
 
 
-
 export type MapStateToPropsProfileContainerType =
     {
         profile: ProfileType | null
-        status : string
-        authorizedUserId : number | null
-        isAuth : boolean
+        status: string
+        authorizedUserId: number | null
+        isAuth: boolean
     }
 
 export type MapDispatchToPropsProfileContainerType =
     {
         getUserProfile: (userId: number | null) => void
-        getStatus : (userId : number | null ) => void
-        updateStatus : ( status : string) => void
-        getMyProfile : () => void
+        getStatus: (userId: number | null) => void
+        updateStatus: (status: string) => void
+        getMyProfile: () => void
     }
 
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsProfileContainerType => (
     {
         profile: state.profilePage.profile,
-        status : state.profilePage.status,
-        authorizedUserId : state.auth.userId,
-        isAuth : state.auth.isAuth,
+        status: state.profilePage.status,
+        authorizedUserId: state.auth.userId,
+        isAuth: state.auth.isAuth,
     })
 
 // let AuthRedirectComponent = withAuthRedirect(ProfileContainer)

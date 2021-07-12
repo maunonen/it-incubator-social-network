@@ -49,8 +49,8 @@ export const setAuthUserData = (userId: number | null, email: string | null, log
 })
 
 export const getAuthUser = () => {
-    return (dispatch: any) => {
-        usersAPI.authMe()
+    return (dispatch: Dispatch) => {
+        return usersAPI.authMe()
             //@ts-ignore
             .then(data => {
                 if (data.resultCode === 0) {

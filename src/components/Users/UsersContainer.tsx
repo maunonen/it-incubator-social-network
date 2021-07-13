@@ -11,7 +11,7 @@ import {AppStateType} from "../../redux/redux-store";
 import Users, {OwnUsersPropsType} from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import {
-    getAllUsers,
+    getAllUsers, getAllUsersSuper,
     getCurrentPage,
     getFollowingProgress,
     getIsFetching,
@@ -86,7 +86,8 @@ class UsersContainer extends React.Component<CombinedContainerUsersPropsType> {
 let mapStateToProps = (state: AppStateType): MapStateToPropsUsersType => {
     return {
         //users: state.usersPage.users,
-        users: getAllUsers(state),
+        //users: getAllUsers(state),
+        users: getAllUsersSuper(state),
         /*pageSize: state.usersPage.pageSize,*/
         pageSize: getPageSize(state),
         /*totalUsersCount: state.usersPage.totalUsersCount,*/

@@ -26,18 +26,21 @@ export type CombinedProfileContainerPropsType = MapStateToPropsProfileContainerT
 class ProfileContainer extends React.Component<CombinedProfileContainerPropsType> {
 
     componentDidMount() {
+
         let userId: number | null = +this.props.match?.params?.userId
+
         if (!userId) {
             /*userId = 17314*/
             // this.props.getMyProfile()
-            let userId = this.props.authorizedUserId
+            userId = this.props.authorizedUserId
             if (!userId) {
                 this.props.history.push("/login")
             }
         }
-        this.props.getUserProfile(userId)
-        this.props.getStatus(userId)
-        console.log('Status', this.props.status)
+        console.log('User ID ', userId);
+        this.props.getUserProfile(userId);
+        this.props.getStatus(userId);
+        console.log('Status', this.props.status);
     }
 
     render() {

@@ -11,7 +11,7 @@ export type ProfileInfoPropsType = {
 }
 
 const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
-    console.log(props.profile)
+    console.log('Profile props', props.profile)
     if ( !props.profile) {
         return <Preloader/>
     }

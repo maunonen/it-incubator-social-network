@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ChangeEventHandler, useState} from 'react'
+import React, {ChangeEvent, ChangeEventHandler, useEffect, useState} from 'react'
 
 export type ProfileStatusType = {
     status: string
@@ -10,6 +10,10 @@ const ProfileStatus: React.FC<ProfileStatusType> = (props) => {
     const [editMode, setEditMode] = useState(false)
     const [localStatus, setLocalStatus] = useState(props.status)
 
+    console.log("Profile status with Hooks")
+    useEffect(() => {
+        setLocalStatus(props.status)
+    }, [props.status])
 
     const activatedStatusMode = () => {
         setEditMode(true)

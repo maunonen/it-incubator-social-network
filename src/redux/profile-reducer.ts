@@ -1,6 +1,7 @@
 import {profileAPI, usersAPI} from "../api/api";
 
 const ADD_POST = 'ADD-POST'
+const DELETE_POST = 'DELETE-POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_STATUS = 'SET_STATUS'
 
@@ -47,10 +48,15 @@ let initialProfileState = {
 export type InitialStateType = typeof initialProfileState
 
 export type CombinedProfileActionCreatorType = AddPostActionCreatorType
-    | SetUserProfileType | SetStatus
+    | SetUserProfileType | SetStatus | deletePostActionCreatorType
 
 export const profileReducer = (state = initialProfileState, action: CombinedProfileActionCreatorType): InitialStateType => {
     switch (action.type) {
+        case DELETE_POST:
+            return {
+                ...state,
+                posts: state.posts.filter(post => post.id !== action.postId)
+            }
         case ADD_POST:
             let newPost = {
                 id: 5,
@@ -76,7 +82,11 @@ export const profileReducer = (state = initialProfileState, action: CombinedProf
 }
 type AddPostActionCreatorType = {
     type: typeof ADD_POST
-    newPostText : string
+    newPostText: string
+}
+type deletePostActionCreatorType = {
+    type: typeof DELETE_POST
+    postId: number
 }
 
 type SetUserProfileType = {
@@ -112,7 +122,8 @@ export const updateStatus = (status: string) => (dispatch: any) => {
         })
 }
 
-export const addPostActionCreator = (newPostText : string): AddPostActionCreatorType => ({type: ADD_POST, newPostText})
+export const addPostActionCreator = (newPostText: string): AddPostActionCreatorType => ({type: ADD_POST, newPostText})
+export const deletePostActionCreator = (postId: number): deletePostActionCreatorType => ({type: DELETE_POST, postId})
 export const setUserProfile = (profile: ProfileType): SetUserProfileType => ({type: SET_USER_PROFILE, profile: profile})
 
 export const getUserProfile = (userId: number) => {
@@ -141,19 +152,19 @@ export const getMyProfile = () => {
                 }
             })
             // @ts-ignore
-            .then( id => {
+            .then(id => {
                 // console.log(id)
                 return profileAPI.getProfile(id)
             })
             //@ts-ignore
-            .then( data => {
+            .then(data => {
                 console.log(data)
-                if (data ){
+                if (data) {
                     dispatch(setUserProfile(data))
                 }
             })
             //@ts-ignore
-            .catch( err => {
+            .catch(err => {
                 console.log(err)
             })
     }

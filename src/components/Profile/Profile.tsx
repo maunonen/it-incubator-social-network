@@ -7,7 +7,7 @@ import {
 
 
 const Profile: React.FC<CombinedProfileContainerPropsType> = (props) => {
-    console.log('Profile props', props)
+    console.log('Profile RENDER', props)
     return (
         <div>
             {props.profile && <ProfileInfo
